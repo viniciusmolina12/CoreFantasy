@@ -1,6 +1,5 @@
 ﻿using CoreFantasy.Domain.Job;
 using CoreFantasy.Domain.Shared;
-using CoreFantasy.Domain.Shared.Errors;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("CoreFantasy.Infrastructure")]

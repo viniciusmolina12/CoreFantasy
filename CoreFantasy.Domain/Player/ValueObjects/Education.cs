@@ -1,9 +1,5 @@
 ﻿using CoreFantasy.Domain.Course;
 using CoreFantasy.Domain.Shared;
-using CoreFantasy.Domain.Shared.Errors;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CoreFantasy.Domain.Player.ValueObjects
 {
