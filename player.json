@@ -1,0 +1,48 @@
+{
+    "_id": "1234567890",
+    "user_id": "1234567890",
+    "name": "John Doe",
+    "age": 20,
+    "alive": true,
+    "gender": "male",
+    "status": {
+        "health": 100
+    },
+    "wallet": {
+        "balance": 1000
+    },
+    "agenda": {
+        "valid_until": "2025-01-01",
+        "planned_actions": [
+            {
+                "action_type": "WORK",
+                "hours": 8
+            },
+            {
+                "action_type": "STUDY",
+                "hours": 9
+            },
+            {
+                "action_type": "SLEEP",
+                "hours": 7
+            }
+        ]
+    },
+    "career": {
+        "job_id": "1234567890",
+        "job_position_id": "1234567890",
+        "worked_hours": 80
+    },
+    "education": {
+        "current_course_id": "algorithms",
+        "current_course_progress": 50,
+        "completed_courses": [
+            "programming",
+            "data_structures"
+        ]
+    },
+    "metadata": {
+        "created_at": "2025-01-01",
+        "updated_at": "2025-01-01"
+    }
+} 

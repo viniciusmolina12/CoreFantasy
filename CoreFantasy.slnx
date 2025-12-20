@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="./CoreFantasy.Application/CoreFantasy.Application.csproj" Id="e172a737-4fae-46dd-86d4-b77acb9e99b2" />
+    <Project Path="./CoreFantasy.Infrastructure1/CoreFantasy.Infrastructure.csproj" Id="8b054f4f-6ce5-4b76-bab7-975b91eddf56" />
+    <Project Path="./CoreFantasy.Api/CoreFantasy.Api.csproj" />
+    <Project Path="./CoreFantasy.Domain/CoreFantasy.Domain.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="./CoreFantasy.Application.Tests/CoreFantasy.Application.Tests.csproj" Id="6c6a3333-fe4c-4955-8bab-244acd71e62f" />
+    <Project Path="./CoreFantasy.Domain.Tests/CoreFantasy.Domain.Tests.csproj" Id="8e5f472d-e749-4a07-b085-83b7b6deb8b8" />
+    <Project Path="./CoreFantasy.Infrastructure.Tests/CoreFantasy.Infrastructure.Tests.csproj" Id="9df91e29-9ad4-4bab-a2c9-72d2382ac7f2" />
+  </Folder>
+</Solution>

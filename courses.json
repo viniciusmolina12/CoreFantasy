@@ -1,0 +1,13 @@
+{
+    "_id": "basic_programming",
+    "name": "Programação Básica",
+    "area": "Tecnologia",
+    "total_hours": 120,
+    "study_cost_per_hour": 5,
+    "health_cost_per_hour": 0.2,
+    "requirements": {
+      "courses_completed": [],
+      "min_age": 16
+    }
+  }
+  

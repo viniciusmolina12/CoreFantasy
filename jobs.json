@@ -1,0 +1,41 @@
+{
+    "_id": "developer",
+    "name": "Desenvolvedor",
+    "area": "Tecnologia",
+    "base_salary_per_hour": 25,
+    "health_cost_per_hour": 0.3,
+    "requirements": {
+      "courses_completed": ["basic_programming"],
+      "minAge": 18
+    },
+    "positions": [
+      {
+        "id": "junior",
+        "name": "Júnior",
+        "salary_multiplier": 1.0,
+        "requirements": {
+           "courses_completed": ["basic_programming"],
+           "required_hours": 0
+        }
+      },
+      {
+        "id": "mid",
+        "name": "Pleno",
+        "salary_multiplier": 1.5,
+        "requirements": {
+           "courses_completed": ["basic_programming","algorithms"],
+           "required_hours": 800
+        }
+      },
+      {
+        "id": "senior",
+        "name": "Sênior",
+        "salary_multiplier": 2.2,
+        "requirements": {
+           "courses_completed": ["basic_programming","algorithms","data_structures"],
+           "required_hours": 2000
+        }
+      }
+    ]
+  }
+  
