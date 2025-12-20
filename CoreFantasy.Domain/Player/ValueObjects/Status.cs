@@ -16,7 +16,7 @@ namespace CoreFantasy.Domain.Player.ValueObjects
         {
             this.Health = Health;
         }
-        public static (Status, Notification)Create(int Health)
+        public static (Status Status, Notification Notification)Create(int Health)
         {
             Notification notification = Validate(Health);
             return (new(Health), notification);
@@ -24,7 +24,7 @@ namespace CoreFantasy.Domain.Player.ValueObjects
 
         private static Notification Validate(int Health)
         {
-            var notification = new Notification();
+            Notification notification = new();
             if (Health < StatusRules.MIN_HEALTH)
             {
                 notification.AddError(typeof(Status).Name, StatusErrors.HEALTH_CANNOT_BE_NEGATIVE);

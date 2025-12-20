@@ -1,4 +1,5 @@
 ﻿using CoreFantasy.Domain.Player.ValueObjects;
+using CoreFantasy.Domain.Player.ValueObjects.Agenda;
 using CoreFantasy.Domain.Shared;
 using CoreFantasy.Domain.User.ValueObjects;
 
@@ -15,7 +16,7 @@ namespace CoreFantasy.Domain.Player
 
     }
 
-    public class Player(PlayerId playerId, Name name, Age age, Status status) : AggregateRoot
+    public class Player(PlayerId playerId, Name name, Age age, Status status, Agenda agenda) : AggregateRoot
     {
         public PlayerId Id { get; private set; } = playerId ?? PlayerId.Create();
 
@@ -25,9 +26,11 @@ namespace CoreFantasy.Domain.Player
 
         public Status Status { get; private set; } = status;
 
-        public static Player Create(Name name, Age age, Status status)
+        public Agenda Agenda { get; private set; } = agenda;
+
+        public static Player Create(Name name, Age age, Status status, Agenda agenda)
         {
-            return new Player(PlayerId.Create(), name, age, status);
+            return new Player(PlayerId.Create(), name, age, status, agenda);
         }
 
         public void ChangeAge(Age Age)

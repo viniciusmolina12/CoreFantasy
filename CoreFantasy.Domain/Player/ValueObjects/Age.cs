@@ -10,7 +10,7 @@ namespace CoreFantasy.Domain.Player.ValueObjects
     public class Age(int Value) : ValueObject
     {
         private int Value { get; } = Value;
-        public static (Age, Notification) Create(int Value)
+        public static (Age Age, Notification Notification) Create(int Value)
         {
             Notification notification = Validate(Value);
             return (new(Value), notification);
@@ -18,7 +18,7 @@ namespace CoreFantasy.Domain.Player.ValueObjects
 
         private static Notification Validate(int Value)
         {
-            var notification = new Notification();
+            Notification notification = new();
             if (Value < AgeRules.MIN_AGE)
             {
                 notification.AddError(typeof(Age).Name, AgeErrors.AGE_CANNOT_BE_NEGATIVE);
