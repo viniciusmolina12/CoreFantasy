@@ -13,9 +13,8 @@ namespace CoreFantasy.Domain.User.ValueObjects
         {
             string formattedValue = Value ?? string.Empty;
             var notification = Validate(formattedValue);
-            if (notification.HasErrors())
-                return (null, notification);
-            return (new Phone(formattedValue), notification);
+            var phone = notification.HasErrors() ? null : new Phone(formattedValue);
+            return (phone, notification);
         }
         private static Notification Validate(string Value)
         {

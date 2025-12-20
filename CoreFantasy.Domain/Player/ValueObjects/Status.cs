@@ -19,7 +19,8 @@ namespace CoreFantasy.Domain.Player.ValueObjects
         public static (Status Status, Notification Notification)Create(int Health)
         {
             Notification notification = Validate(Health);
-            return (new(Health), notification);
+            var health = notification.HasErrors() ? null : new Status(Health);
+            return (health, notification);
         }
 
         private static Notification Validate(int Health)

@@ -19,7 +19,8 @@ namespace CoreFantasy.Domain.Player.ValueObjects.Agenda
         public static (Agenda Agenda, Notification Notification) Create(DateTime validUntil, List<PlannedAction> plannedActions)
         {
             Notification notification = Validate(validUntil, plannedActions);
-            return (new Agenda(validUntil, plannedActions), notification);
+            var agenda = notification.HasErrors() ? null : new Agenda(validUntil, plannedActions);
+            return (agenda, notification);
         }
 
         private static Notification Validate(DateTime validUntil, List<PlannedAction> plannedActions)

@@ -23,7 +23,8 @@ namespace CoreFantasy.Domain.Player.ValueObjects.Agenda
         public static (PlannedAction PlannedAction, Notification Notification)Create(ActionType actionType, int hours)
         {
             Notification notification = Validate(hours);
-            return (new(actionType, hours), notification);
+            var plannedAction = notification.HasErrors() ? null : new PlannedAction(actionType, hours);
+            return (plannedAction, notification);
         }
 
         private static Notification Validate(int hours)

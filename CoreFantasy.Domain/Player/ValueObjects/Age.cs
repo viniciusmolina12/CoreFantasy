@@ -5,7 +5,7 @@ namespace CoreFantasy.Domain.Player.ValueObjects
     file record AgeRules
     {
         public static int MAX_AGE = 85;
-        public static int MIN_AGE = 85;
+        public static int MIN_AGE = 18;
     }
     public class Age(int Value) : ValueObject
     {
@@ -13,7 +13,8 @@ namespace CoreFantasy.Domain.Player.ValueObjects
         public static (Age Age, Notification Notification) Create(int Value)
         {
             Notification notification = Validate(Value);
-            return (new(Value), notification);
+            var age = notification.HasErrors() ? null : new Age(Value);
+            return (age, notification);
         }
 
         private static Notification Validate(int Value)

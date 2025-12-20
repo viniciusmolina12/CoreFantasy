@@ -15,11 +15,8 @@ namespace CoreFantasy.Domain.User.ValueObjects
         public static (Name Name, Notification Notification) Create(string Value)
         {
             var notification = Validate(Value);
-
-            if (notification.HasErrors())
-                return (null, notification);
-
-            return (new Name(Value), notification);
+            var name = notification.HasErrors() ? null : new Name(Value);
+            return (name, notification);
         }
 
         private static Notification Validate(string Value)

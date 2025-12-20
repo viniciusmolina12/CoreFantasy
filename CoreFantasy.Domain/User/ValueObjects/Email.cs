@@ -1,7 +1,4 @@
 ﻿using CoreFantasy.Domain.Shared;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CoreFantasy.Domain.User.ValueObjects
 {
@@ -17,9 +14,8 @@ namespace CoreFantasy.Domain.User.ValueObjects
         public static (Email Email, Notification Notification) Create(string Value)
         {
             var notification = Validate(Value);
-            if (notification.HasErrors())
-                return (null, notification);
-            return (new Email(Value), notification);
+            var email = notification.HasErrors() ? null : new Email(Value);
+            return (email, notification);
         }
 
         private static Notification Validate(string Value)
