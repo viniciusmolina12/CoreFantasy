@@ -1,4 +1,6 @@
-﻿using CoreFantasy.Domain.Job;
+﻿using CoreFantasy.Domain.Course;
+using CoreFantasy.Domain.Job;
+using CoreFantasy.Domain.Player.Entities;
 using CoreFantasy.Domain.Player.ValueObjects;
 using CoreFantasy.Domain.Player.ValueObjects.Agenda;
 using CoreFantasy.Domain.Shared;
@@ -33,7 +35,9 @@ namespace CoreFantasy.Domain.Player
         public Age Age { get; private set; }
         public Status Status { get; private set; }
         public Agenda Agenda { get; private set; }
-        public Career Career { get; private set; }
+        public Career? Career { get; private set; }
+        public Education? Education { get; private set; }
+        public bool Alive { get; private set; }
 
 
         private Player(
@@ -43,7 +47,8 @@ namespace CoreFantasy.Domain.Player
             Status status,
             Agenda agenda,
             JobId jobId,
-            JobPositionId jobPositionId
+            JobPositionId jobPositionId,
+            CourseId courseId
             )
         {
             Id = playerId;
@@ -51,7 +56,9 @@ namespace CoreFantasy.Domain.Player
             Age = age;
             Status = status;
             Agenda = agenda;
-            Career = Career.Create(jobId, jobPositionId); 
+            Career = Career.Create(jobId, jobPositionId);
+            Education = Education.Create(courseId);
+            Alive = true;
         }
 
         public static Player Create(
@@ -60,7 +67,8 @@ namespace CoreFantasy.Domain.Player
             Status status,
             Agenda agenda,
             JobId jobId,
-            JobPositionId jobPositionId
+            JobPositionId jobPositionId,
+            CourseId courseId
             )
         {
             return new Player(
@@ -70,11 +78,12 @@ namespace CoreFantasy.Domain.Player
                 status,
                 agenda,
                 jobId,
-                jobPositionId
+                jobPositionId,
+                courseId
             );
         }
 
-        private Player(){}
+        private Player() { }
 
         internal static Player Rehydrate(
             PlayerId playerId,
@@ -82,7 +91,10 @@ namespace CoreFantasy.Domain.Player
             Age age,
             Status status,
             Agenda agenda,
-            Career career)
+            Career career,
+            Education education,
+            bool alive
+            )
         {
             return new Player
             {
@@ -91,7 +103,9 @@ namespace CoreFantasy.Domain.Player
                 Age = age,
                 Status = status,
                 Agenda = agenda,
-                Career = career
+                Career = career,
+                Education = education,
+                Alive = alive
             };
         }
 
@@ -107,7 +121,27 @@ namespace CoreFantasy.Domain.Player
 
         public void ChangeCareer(JobId jobId, JobPositionId jobPositionId)
         {
-            Career = Career.Create(jobId, jobPositionId); 
+            if (this.Alive)
+            {
+                this.Career = Career.Create(jobId, jobPositionId);
+                Touch();
+            }
+        }
+
+        public void ChangeEducation(CourseId courseId)
+        {
+            if (this.Alive) {
+                Education = Education.Create(courseId);
+                Touch();
+            }
+        }
+
+        public void MarkAsDeceased()
+        {
+            this.Career = null;
+            this.Education = null;
+            Alive = false;
+            Touch();
         }
     }
 }
