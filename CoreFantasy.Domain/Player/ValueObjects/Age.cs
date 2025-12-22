@@ -1,15 +1,14 @@
 ﻿using CoreFantasy.Domain.Shared;
-//TODO - TEST
 namespace CoreFantasy.Domain.Player.ValueObjects
 {
-    file record AgeRules
+    public record AgeRules
     {
         public static int MAX_AGE = 85;
         public static int MIN_AGE = 18;
     }
     public class Age(int Value) : ValueObject
     {
-        private int Value { get; } = Value;
+        public int Value { get; } = Value;
         public static (Age Age, Notification Notification) Create(int Value)
         {
             Notification notification = Validate(Value);
@@ -22,7 +21,7 @@ namespace CoreFantasy.Domain.Player.ValueObjects
             Notification notification = new();
             if (Value < AgeRules.MIN_AGE)
             {
-                notification.AddError(typeof(Age).Name, AgeErrors.AGE_CANNOT_BE_NEGATIVE);
+                notification.AddError(typeof(Age).Name, AgeErrors.AGE_LESS_THAN_MINIMAL);
             }else if (Value > AgeRules.MAX_AGE)
             {
                 notification.AddError(typeof(Age).Name, AgeErrors.AGE_EXCEED_MAXIMUM);
@@ -37,7 +36,7 @@ namespace CoreFantasy.Domain.Player.ValueObjects
 
     public record AgeErrors
     {
-        public static readonly string AGE_CANNOT_BE_NEGATIVE = $"Age cannot be less than {AgeRules.MIN_AGE}.";
+        public static readonly string AGE_LESS_THAN_MINIMAL = $"Age cannot be less than {AgeRules.MIN_AGE}.";
         public static readonly string AGE_EXCEED_MAXIMUM = $"Age cannot be more than {AgeRules.MAX_AGE}.";
     }
 }
