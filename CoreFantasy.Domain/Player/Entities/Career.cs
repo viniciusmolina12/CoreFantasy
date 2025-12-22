@@ -3,10 +3,11 @@ using CoreFantasy.Domain.Shared;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("CoreFantasy.Infrastructure")]
+[assembly: InternalsVisibleTo("CoreFantasy.Domain.Tests")]
 // TODO - TEST
 namespace CoreFantasy.Domain.Player.Entities
 {
-    file record CareerRules
+    public record CareerRules
     {
         public static int MIN_WORKED_HOURS = 0;
     }
@@ -46,7 +47,7 @@ namespace CoreFantasy.Domain.Player.Entities
             Notification notification = new();
             if(hours < 0)
             {
-               notification.AddError("Career", CareerErrors.WORKED_HOURS_CANNOT_BE_NEGATIVE);
+               notification.AddError(typeof(Career).Name, CareerErrors.WORKED_HOURS_CANNOT_BE_NEGATIVE);
             }
 
             int newWorkedHours = WorkedHours + hours;
