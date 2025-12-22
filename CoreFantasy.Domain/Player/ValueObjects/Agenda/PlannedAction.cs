@@ -3,10 +3,10 @@
 namespace CoreFantasy.Domain.Player.ValueObjects.Agenda
 {
 
-    file record PlannedActionRules
+    public record PlannedActionRules
     {
-        public static int MIN_HOURS = 1;
-        public static int MAX_HOURS = 24;
+        public readonly static int MIN_HOURS = 1;
+        public readonly static int MAX_HOURS = 24;
     }
 
     public class PlannedAction : ValueObject
@@ -22,14 +22,18 @@ namespace CoreFantasy.Domain.Player.ValueObjects.Agenda
 
         public static (PlannedAction PlannedAction, Notification Notification)Create(ActionType actionType, int hours)
         {
-            Notification notification = Validate(hours);
+            Notification notification = Validate(actionType, hours);
             var plannedAction = notification.HasErrors() ? null : new PlannedAction(actionType, hours);
             return (plannedAction, notification);
         }
 
-        private static Notification Validate(int hours)
+        private static Notification Validate(ActionType actionType, int hours)
         {
             Notification notification = new();
+            if(actionType is null)
+            {
+                notification.AddError(typeof(PlannedAction).Name, PlannedActionErrors.PLANNED_ACTION_ACTION_TYPE_INVALID);
+            }
             if (hours < PlannedActionRules.MIN_HOURS || hours > PlannedActionRules.MAX_HOURS)
             {
                 notification.AddError(typeof(PlannedAction).Name, PlannedActionErrors.PLANNED_ACTION_HOURS_INVALID);
@@ -47,5 +51,6 @@ namespace CoreFantasy.Domain.Player.ValueObjects.Agenda
     public record PlannedActionErrors
     {
         public static readonly string PLANNED_ACTION_HOURS_INVALID = $"Hours must be between {PlannedActionRules.MIN_HOURS} and {PlannedActionRules.MAX_HOURS}.";
+        public static readonly string PLANNED_ACTION_ACTION_TYPE_INVALID = "Invalid ActionType";
     }
 }

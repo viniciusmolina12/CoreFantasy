@@ -1,6 +1,8 @@
-﻿using CourseId = CoreFantasy.Domain.Course.CourseId;
+﻿using System.Runtime.CompilerServices;
+using CourseId = CoreFantasy.Domain.Course.CourseId;
 using Notification = CoreFantasy.Domain.Shared.Notification;
 
+[assembly: InternalsVisibleTo("CoreFantasy.Infrastructure")]
 namespace CoreFantasy.Domain.Player.Entities
 {
     file record EducationRules
@@ -27,12 +29,12 @@ namespace CoreFantasy.Domain.Player.Entities
 
         public static Education Create(CourseId courseId)
         {
-            return new Education(courseId);
+            return new(courseId);
         }
 
         internal static Education Rehydrate(CourseId courseId, int progress)
         {
-            return new Education(courseId, progress);
+            return new(courseId, progress);
         }
 
 
@@ -52,7 +54,6 @@ namespace CoreFantasy.Domain.Player.Entities
             {
                 notification.AddError(typeof(Education).Name, EducationErrors.COURSE_PROGRESS_EXCEED_MAXIMUM);
             }
-
 
             if (notification.HasErrors()) return notification;
             this.Progress = newProgress;
