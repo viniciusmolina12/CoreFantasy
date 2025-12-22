@@ -1,5 +1,4 @@
 ﻿using CoreFantasy.Domain.Shared;
-//TODO - TEST
 namespace CoreFantasy.Domain.Player.ValueObjects.Agenda
 {
 

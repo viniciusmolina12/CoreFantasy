@@ -1,7 +1,7 @@
-﻿using Sut = CoreFantasy.Domain.User.ValueObjects.Phone;
-using Errors = CoreFantasy.Domain.User.ValueObjects.PhoneErrors;
-using Bogus;
+﻿using Bogus;
 using CoreFantasy.Domain.Shared;
+using Errors = CoreFantasy.Domain.User.ValueObjects.PhoneErrors;
+using Sut = CoreFantasy.Domain.User.ValueObjects.Phone;
 namespace CoreFantasy.Domain.Tests.User
 {
     public class Phone

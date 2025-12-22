@@ -1,8 +1,8 @@
-﻿using Sut = CoreFantasy.Domain.Player.ValueObjects.Age;
+﻿using Bogus;
+using CoreFantasy.Domain.Shared;
 using Errors = CoreFantasy.Domain.Player.ValueObjects.AgeErrors;
 using Rules = CoreFantasy.Domain.Player.ValueObjects.AgeRules;
-using Bogus;
-using CoreFantasy.Domain.Shared;
+using Sut = CoreFantasy.Domain.Player.ValueObjects.Age;
 
 namespace CoreFantasy.Domain.Tests.Player
 {

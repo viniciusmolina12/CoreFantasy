@@ -1,9 +1,9 @@
-﻿using Sut = CoreFantasy.Domain.Player.ValueObjects.Agenda.PlannedAction;
+﻿using Bogus;
+using CoreFantasy.Domain.Player.ValueObjects.Agenda;
+using CoreFantasy.Domain.Shared;
 using Errors = CoreFantasy.Domain.Player.ValueObjects.Agenda.PlannedActionErrors;
 using Rules = CoreFantasy.Domain.Player.ValueObjects.Agenda.PlannedActionRules;
-using Bogus;
-using CoreFantasy.Domain.Shared;
-using CoreFantasy.Domain.Player.ValueObjects.Agenda;
+using Sut = CoreFantasy.Domain.Player.ValueObjects.Agenda.PlannedAction;
 
 namespace CoreFantasy.Domain.Tests.Player
 {

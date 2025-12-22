@@ -3,9 +3,9 @@
 //TODO - TEST
 namespace CoreFantasy.Domain.Player.ValueObjects.Agenda
 {
-    file record AgendaRules
+    public record AgendaRules
     {
-        public static int MAX_TOTAL_HOURS = 24;
+        public readonly static int TOTAL_HOURS = 24;
     }
     public class Agenda : ValueObject
     {
@@ -37,9 +37,9 @@ namespace CoreFantasy.Domain.Player.ValueObjects.Agenda
             }
 
             int totalHours = plannedActions.Sum(pa => pa.Hours);
-            if (totalHours > AgendaRules.MAX_TOTAL_HOURS)
+            if (totalHours != AgendaRules.TOTAL_HOURS)
             {
-                notification.AddError(typeof(Agenda).Name, AgendaErrors.AGENDA_TOTAL_HOURS_EXCEEDED);
+                notification.AddError(typeof(Agenda).Name, AgendaErrors.AGENDA_TOTAL_HOURS_INVALID);
             }
 
             return notification;
@@ -58,7 +58,7 @@ namespace CoreFantasy.Domain.Player.ValueObjects.Agenda
     {
         public static readonly string AGENDA_INVALID_VALID_UNTIL = "ValidUntil must be a future date.";
         public static readonly string AGENDA_PLANNED_ACTIONS_EMPTY = "PlannedActions cannot be empty.";
-        public static readonly string AGENDA_TOTAL_HOURS_EXCEEDED = $"Total planned action hours cannot exceed {AgendaRules.MAX_TOTAL_HOURS} hours.";
+        public static readonly string AGENDA_TOTAL_HOURS_INVALID = $"Total planned action hours should be {AgendaRules.TOTAL_HOURS} hours.";
     }
 
 

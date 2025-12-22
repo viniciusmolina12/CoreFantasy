@@ -1,7 +1,7 @@
-﻿using Sut = CoreFantasy.Domain.User.ValueObjects.Name;
-using Errors = CoreFantasy.Domain.User.ValueObjects.NameErrors;
-using Bogus;
+﻿using Bogus;
 using CoreFantasy.Domain.Shared;
+using Errors = CoreFantasy.Domain.User.ValueObjects.NameErrors;
+using Sut = CoreFantasy.Domain.User.ValueObjects.Name;
 namespace CoreFantasy.Domain.Tests.User
 {
     public class Name

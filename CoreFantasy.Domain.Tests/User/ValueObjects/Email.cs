@@ -1,7 +1,7 @@
-﻿using Sut = CoreFantasy.Domain.User.ValueObjects.Email;
-using Errors = CoreFantasy.Domain.User.ValueObjects.EmailErrors;
-using Bogus;
+﻿using Bogus;
 using CoreFantasy.Domain.Shared;
+using Errors = CoreFantasy.Domain.User.ValueObjects.EmailErrors;
+using Sut = CoreFantasy.Domain.User.ValueObjects.Email;
 namespace CoreFantasy.Domain.Tests.User
 {
     public class Email
