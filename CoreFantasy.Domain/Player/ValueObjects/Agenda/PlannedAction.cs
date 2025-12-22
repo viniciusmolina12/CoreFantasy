@@ -32,7 +32,7 @@ namespace CoreFantasy.Domain.Player.ValueObjects.Agenda
             Notification notification = new();
             if (hours < PlannedActionRules.MIN_HOURS || hours > PlannedActionRules.MAX_HOURS)
             {
-                notification.AddError(typeof(PlannedAction).Name, $"Hours must be between {PlannedActionRules.MIN_HOURS} and {PlannedActionRules.MAX_HOURS}.");
+                notification.AddError(typeof(PlannedAction).Name, PlannedActionErrors.PLANNED_ACTION_HOURS_INVALID);
             }
             return notification;
 

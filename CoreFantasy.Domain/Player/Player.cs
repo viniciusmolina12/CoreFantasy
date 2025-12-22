@@ -3,8 +3,8 @@ using CoreFantasy.Domain.Job;
 using CoreFantasy.Domain.Player.Entities;
 using CoreFantasy.Domain.Player.ValueObjects;
 using CoreFantasy.Domain.Player.ValueObjects.Agenda;
-using CoreFantasy.Domain.Shared;
 using CoreFantasy.Domain.User.ValueObjects;
+using CoreFantasy.Domain.Shared;
 
 namespace CoreFantasy.Domain.Player
 {

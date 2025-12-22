@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("CoreFantasy.Infrastructure")]
 // TODO - TEST
-namespace CoreFantasy.Domain.Player.ValueObjects
+namespace CoreFantasy.Domain.Player.Entities
 {
     file record CareerRules
     {
@@ -44,11 +44,12 @@ namespace CoreFantasy.Domain.Player.ValueObjects
         internal Notification AddWorkedHours(int hours)
         {
             Notification notification = new();
-            int newWorkedHours = WorkedHours + hours;
-            if (newWorkedHours < CareerRules.MIN_WORKED_HOURS)
+            if(hours < 0)
             {
-                notification.AddError("Career", CareerErrors.WORKED_HOURS_CANNOT_BE_NEGATIVE);
+               notification.AddError("Career", CareerErrors.WORKED_HOURS_CANNOT_BE_NEGATIVE);
             }
+
+            int newWorkedHours = WorkedHours + hours;
             if (notification.HasErrors()) return notification;
             WorkedHours = newWorkedHours;
             return notification;
