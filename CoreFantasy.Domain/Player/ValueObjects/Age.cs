@@ -3,8 +3,8 @@ namespace CoreFantasy.Domain.Player.ValueObjects
 {
     public record AgeRules
     {
-        public static int MAX_AGE = 85;
-        public static int MIN_AGE = 18;
+        public readonly static int MAX_AGE = 85;
+        public readonly static int MIN_AGE = 18;
     }
     public class Age(int Value) : ValueObject
     {

@@ -1,12 +1,11 @@
 ﻿using CoreFantasy.Domain.Shared;
-using System.Collections.ObjectModel;
-//TODO - TEST
+
 namespace CoreFantasy.Domain.Player.ValueObjects
 {
     public record StatusRules
     {
-        public static readonly int MAX_HEALTH = 100;
-        public static readonly int MIN_HEALTH = 1;
+        public readonly static  int MAX_HEALTH = 100;
+        public readonly static int MIN_HEALTH = 1;
     }
     public class Status : ValueObject
     {

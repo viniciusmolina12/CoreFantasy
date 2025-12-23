@@ -9,7 +9,7 @@ namespace CoreFantasy.Domain.Player.Entities
 {
     public record CareerRules
     {
-        public static int MIN_WORKED_HOURS = 0;
+        public readonly static int MIN_WORKED_HOURS = 0;
     }
     public class Career: ValueObject
     {

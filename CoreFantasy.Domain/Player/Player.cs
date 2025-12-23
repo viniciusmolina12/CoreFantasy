@@ -3,9 +3,9 @@ using CoreFantasy.Domain.Job;
 using CoreFantasy.Domain.Player.Entities;
 using CoreFantasy.Domain.Player.ValueObjects;
 using CoreFantasy.Domain.Player.ValueObjects.Agenda;
-using CoreFantasy.Domain.User.ValueObjects;
 using CoreFantasy.Domain.Shared;
-
+using CoreFantasy.Domain.User;
+using CoreFantasy.Domain.User.ValueObjects;
 namespace CoreFantasy.Domain.Player
 {
     public class PlayerId
@@ -31,6 +31,7 @@ namespace CoreFantasy.Domain.Player
     public class Player : AggregateRoot
     {
         public PlayerId Id { get; private set; }
+        public UserId UserId { get; private set; }
         public Name Name { get; private set; }
         public Age Age { get; private set; }
         public Status Status { get; private set; }
@@ -42,6 +43,7 @@ namespace CoreFantasy.Domain.Player
 
         private Player(
             PlayerId playerId,
+            UserId userId,
             Name name,
             Age age,
             Status status,
@@ -52,6 +54,7 @@ namespace CoreFantasy.Domain.Player
             )
         {
             Id = playerId;
+            UserId = userId;
             Name = name;
             Age = age;
             Status = status;
@@ -63,6 +66,7 @@ namespace CoreFantasy.Domain.Player
 
         public static Player Create(
             Name name,
+            UserId userId,
             Age age,
             Status status,
             Agenda agenda,
@@ -73,6 +77,7 @@ namespace CoreFantasy.Domain.Player
         {
             return new Player(
                 PlayerId.Create(),
+                userId,
                 name,
                 age,
                 status,
@@ -87,6 +92,7 @@ namespace CoreFantasy.Domain.Player
 
         internal static Player Rehydrate(
             PlayerId playerId,
+            UserId userId,
             Name name,
             Age age,
             Status status,

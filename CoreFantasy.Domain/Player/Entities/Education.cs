@@ -8,8 +8,8 @@ namespace CoreFantasy.Domain.Player.Entities
 {
     public record EducationRules
     {
-        public static int MIN_COURSE_PROGRESS = 0;
-        public static int MAX_COURSE_PROGRESS = 100;
+        public readonly static int MIN_COURSE_PROGRESS = 0;
+        public readonly static int MAX_COURSE_PROGRESS = 100;
     }
     public class Education
     {
