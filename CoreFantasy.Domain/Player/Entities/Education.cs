@@ -3,9 +3,10 @@ using CourseId = CoreFantasy.Domain.Course.CourseId;
 using Notification = CoreFantasy.Domain.Shared.Notification;
 
 [assembly: InternalsVisibleTo("CoreFantasy.Infrastructure")]
+[assembly: InternalsVisibleTo("CoreFantasy.Domain.Tests")]
 namespace CoreFantasy.Domain.Player.Entities
 {
-    file record EducationRules
+    public record EducationRules
     {
         public static int MIN_COURSE_PROGRESS = 0;
         public static int MAX_COURSE_PROGRESS = 100;

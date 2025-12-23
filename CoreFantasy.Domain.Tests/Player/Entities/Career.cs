@@ -8,7 +8,7 @@ using Sut = CoreFantasy.Domain.Player.Entities.Career;
 
 namespace CoreFantasy.Domain.Tests.Player.Entities
 {
-    public class Agenda
+    public class Career
     {
         public Faker faker = new();
 
@@ -30,7 +30,7 @@ namespace CoreFantasy.Domain.Tests.Player.Entities
         public void Should_Rehydrated_A_Career_Correctly()
         {
             // Arrange
-            int workedHours = faker.Random.Int(0, 100);
+            int workedHours = faker.Random.Int(Rules.MIN_WORKED_HOURS);
             Sut career = Sut.Rehydrate(jobId, jobPositionId, workedHours);
             Assert.Equal(jobId, career.JobId);
             Assert.Equal(jobPositionId, career.JobPositionId);
@@ -41,7 +41,7 @@ namespace CoreFantasy.Domain.Tests.Player.Entities
         public void Should_Add_Worked_Hours()
         {
             // Arrange
-            int workedHoursAdded = faker.Random.Int(0, 100);
+            int workedHoursAdded = faker.Random.Int(Rules.MIN_WORKED_HOURS);
             Sut career = Sut.Create(jobId, jobPositionId);
             Assert.Equal(Rules.MIN_WORKED_HOURS, career.WorkedHours);
             Notification notificationErrors = career.AddWorkedHours(workedHoursAdded);
