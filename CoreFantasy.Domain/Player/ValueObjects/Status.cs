@@ -5,7 +5,7 @@ namespace CoreFantasy.Domain.Player.ValueObjects
     public record StatusRules
     {
         public readonly static  int MAX_HEALTH = 100;
-        public readonly static int MIN_HEALTH = 1;
+        public readonly static int MIN_HEALTH = 0;
     }
     public class Status : ValueObject
     {
