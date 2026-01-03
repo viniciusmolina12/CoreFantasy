@@ -5,11 +5,11 @@ using CoreFantasy.Domain.User.ValueObjects;
 using UserEntity = CoreFantasy.Domain.User.User;
 namespace CoreFantasy.Application.User.Usecases
 {
-    public class CreateUserCommand
+    public record CreateUserCommand
     {
-        public string Email { get; init; }
-        public string Name { get; init; }
-        public string Phone { get; init; }
+        public required string Email { get; init; }
+        public required string Name { get; init; }
+        public required string Phone { get; init; }
     }
     public class CreateUserUsecase(IUserRepository userRepository, IIdentityProvider identityProvider)
     {
