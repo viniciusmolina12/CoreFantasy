@@ -35,7 +35,7 @@ namespace CoreFantasy.Domain.Player
         public Name Name { get; private set; }
         public Age Age { get; private set; }
         public Status Status { get; private set; }
-        public Agenda Agenda { get; private set; }
+        public Agenda? Agenda { get; private set; }
         public Career? Career { get; private set; }
         public Education? Education { get; private set; }
         public bool Alive { get; private set; }
@@ -105,6 +105,7 @@ namespace CoreFantasy.Domain.Player
             return new Player
             {
                 Id = playerId,
+                UserId = userId,
                 Name = name,
                 Age = age,
                 Status = status,
@@ -142,10 +143,60 @@ namespace CoreFantasy.Domain.Player
             }
         }
 
-        public void MarkAsDeceased()
+        public void Work(int workHours)
+        {
+            //TODO ADD MONEY IMPLEMENTATION
+            this.DecreaseHealthStatus(workHours);
+            if (this.Alive)
+            {
+                this.Career?.AddWorkedHours(workHours);
+                Touch();
+            }
+        }
+
+        public void Study(int studyHours)
+        {
+            this.DecreaseHealthStatus(studyHours);
+            if (this.Alive)
+            {
+                this.Education?.UpdateCourseProgress(studyHours);
+                Touch();
+            }
+        }
+
+        public void Sleep(int sleepHours)
+        {
+            this.IncreaseHealthStatus(sleepHours);
+            Touch();
+        }
+
+        private void DecreaseHealthStatus(int health)
+        {
+            int newHealth = this.Status.Health - health < 0 ? 0 : this.Status.Health - health;
+            this.Status = Status.Create(newHealth).Status;
+            TryMarkAsDeceased();
+            Touch();
+        }
+
+        private void IncreaseHealthStatus(int health)
+        {
+            int newHealth = this.Status.Health + health > StatusRules.MAX_HEALTH ? StatusRules.MAX_HEALTH : this.Status.Health + health;
+            this.Status = Status.Create(newHealth).Status;
+            Touch();
+        }
+        private void TryMarkAsDeceased()
+        {
+            if (this.Status.Health == 0)
+            {
+                this.MarkAsDeceased();
+            }
+        }
+
+        private void MarkAsDeceased()
         {
             this.Career = null;
             this.Education = null;
+            this.Agenda = null;
             Alive = false;
             Touch();
         }

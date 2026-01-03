@@ -5,10 +5,9 @@
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
 
-        private readonly List<IDomainEvent> _domainEvents = new();
+        private readonly List<IDomainEvent> _domainEvents = [];
 
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents;
-
 
         protected AggregateRoot()
         {
