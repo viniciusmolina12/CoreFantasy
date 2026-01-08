@@ -38,7 +38,11 @@ namespace CoreFantasy.Domain.Player.Entities
             return new(courseId, progress);
         }
 
-
+        public decimal CalculateEducationCost(int studyHours)
+        {
+            // TODO IMPLEMENT EDUCATION COST CALCULATION
+            return 0m;
+        }
         public Notification UpdateCourseProgress(int progress)
         {
             Notification notification = new();

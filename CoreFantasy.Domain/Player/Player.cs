@@ -1,11 +1,11 @@
 ﻿using CoreFantasy.Domain.Course;
-using CoreFantasy.Domain.Job;
 using CoreFantasy.Domain.Player.Entities;
 using CoreFantasy.Domain.Player.ValueObjects;
 using CoreFantasy.Domain.Player.ValueObjects.Agenda;
 using CoreFantasy.Domain.Shared;
 using CoreFantasy.Domain.User;
 using CoreFantasy.Domain.User.ValueObjects;
+
 namespace CoreFantasy.Domain.Player
 {
     public class PlayerId
@@ -46,11 +46,7 @@ namespace CoreFantasy.Domain.Player
             UserId userId,
             Name name,
             Age age,
-            Status status,
-            Agenda agenda,
-            JobId jobId,
-            JobPositionId jobPositionId,
-            CourseId courseId
+            Status status
             )
         {
             Id = playerId;
@@ -58,9 +54,6 @@ namespace CoreFantasy.Domain.Player
             Name = name;
             Age = age;
             Status = status;
-            Agenda = agenda;
-            Career = Career.Create(jobId, jobPositionId);
-            Education = Education.Create(courseId);
             Alive = true;
         }
 
@@ -68,11 +61,7 @@ namespace CoreFantasy.Domain.Player
             Name name,
             UserId userId,
             Age age,
-            Status status,
-            Agenda agenda,
-            JobId jobId,
-            JobPositionId jobPositionId,
-            CourseId courseId
+            Status status
             )
         {
             return new Player(
@@ -80,11 +69,7 @@ namespace CoreFantasy.Domain.Player
                 userId,
                 name,
                 age,
-                status,
-                agenda,
-                jobId,
-                jobPositionId,
-                courseId
+                status
             );
         }
 
@@ -126,11 +111,19 @@ namespace CoreFantasy.Domain.Player
             Status = status;
         }
 
-        public void ChangeCareer(JobId jobId, JobPositionId jobPositionId)
+        public void StartCareer(Career career)
         {
             if (this.Alive)
             {
-                this.Career = Career.Create(jobId, jobPositionId);
+                this.Career = career;
+                Touch();
+            }
+        }
+
+        public void Enroll(Education education)
+        {
+            if (this.Alive) {
+                Education = education;
                 Touch();
             }
         }
@@ -150,6 +143,8 @@ namespace CoreFantasy.Domain.Player
             if (this.Alive)
             {
                 this.Career?.AddWorkedHours(workHours);
+                decimal earnings = this.Career.CalculateEarnings(workHours);
+                this.AddMoney(earnings);
                 Touch();
             }
         }
@@ -159,6 +154,8 @@ namespace CoreFantasy.Domain.Player
             this.DecreaseHealthStatus(studyHours);
             if (this.Alive)
             {
+                decimal educationCost = this.Education.CalculateEducationCost(studyHours);
+                this.SubtractMoney(educationCost);
                 this.Education?.UpdateCourseProgress(studyHours);
                 Touch();
             }
@@ -170,19 +167,29 @@ namespace CoreFantasy.Domain.Player
             Touch();
         }
 
-        private void DecreaseHealthStatus(int health)
+        private void DecreaseHealthStatus(int damage)
         {
-            int newHealth = this.Status.Health - health < 0 ? 0 : this.Status.Health - health;
-            this.Status = Status.Create(newHealth).Status;
+            this.Status = Status.Create(damage, this.Status.Money);
             TryMarkAsDeceased();
-            Touch();
         }
 
-        private void IncreaseHealthStatus(int health)
+        private void AddMoney(decimal money)
         {
-            int newHealth = this.Status.Health + health > StatusRules.MAX_HEALTH ? StatusRules.MAX_HEALTH : this.Status.Health + health;
-            this.Status = Status.Create(newHealth).Status;
-            Touch();
+            decimal currentMoney = this.Status.Money;
+            decimal totalMoney = currentMoney + money;
+            this.Status = Status.Create(this.Status.Health, totalMoney);
+        }
+
+        private void SubtractMoney(decimal money)
+        {
+            decimal currentMoney = this.Status.Money;
+            decimal totalMoney = currentMoney - money;
+            this.Status = Status.Create(this.Status.Health, totalMoney);
+        }
+
+        private void IncreaseHealthStatus(int recovery)
+        {
+            this.Status = Status.Create(recovery, this.Status.Money);
         }
         private void TryMarkAsDeceased()
         {
@@ -198,7 +205,6 @@ namespace CoreFantasy.Domain.Player
             this.Education = null;
             this.Agenda = null;
             Alive = false;
-            Touch();
         }
     }
 }
