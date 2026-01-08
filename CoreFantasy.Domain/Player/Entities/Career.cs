@@ -1,6 +1,7 @@
 ﻿using CoreFantasy.Domain.Job;
 using CoreFantasy.Domain.Shared;
 using System.Runtime.CompilerServices;
+using JobEntity = CoreFantasy.Domain.Job.Job;
 
 [assembly: InternalsVisibleTo("CoreFantasy.Infrastructure")]
 [assembly: InternalsVisibleTo("CoreFantasy.Domain.Tests")]
@@ -11,37 +12,42 @@ namespace CoreFantasy.Domain.Player.Entities
     {
         public readonly static int MIN_WORKED_HOURS = 0;
     }
-    public class Career: ValueObject
+    public class Career
     {
-        public JobId JobId { get; private set; }
+        public JobEntity Job { get; private set; }
         public JobPositionId JobPositionId { get; private set; }
         public int WorkedHours { get; private set; }
 
-        private Career(JobId jobId, JobPositionId jobPositionId)
+        private Career(JobEntity job, JobPositionId jobPositionId)
         {
-            this.JobId = jobId;
+            this.Job = job;
             this.JobPositionId = jobPositionId;
             this.WorkedHours = 0;
         }
 
-        private Career(JobId jobId, JobPositionId jobPositionId, int workedHours)
+        private Career(JobEntity job, JobPositionId jobPositionId, int workedHours)
         {
-            this.JobId = jobId;
+            this.Job = job;
             this.JobPositionId = jobPositionId;
             this.WorkedHours = workedHours;
         }
 
-        public static Career Create(JobId jobId, JobPositionId jobPositionId)
+        public static Career Create(JobEntity job, JobPositionId jobPositionId)
         {
-            return new(jobId, jobPositionId);
+            return new(job, jobPositionId);
         }
 
-        internal static Career Rehydrate(JobId jobId, JobPositionId jobPositionId, int workedHours)
+        internal static Career Rehydrate(JobEntity job, JobPositionId jobPositionId, int workedHours)
         {
-            return new(jobId, jobPositionId, workedHours);
+            return new(job, jobPositionId, workedHours);
         }
 
-   
+
+        public decimal CalculateEarnings(int workedHours)
+        {
+            return this.Job.BaseSalaryPerHour * workedHours;
+        }
+
         internal Notification AddWorkedHours(int hours)
         {
             Notification notification = new();
@@ -56,13 +62,6 @@ namespace CoreFantasy.Domain.Player.Entities
             return notification;
         }
 
-
-        protected override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return JobId;
-            yield return JobPositionId;
-            yield return WorkedHours;
-        }
     }
 
     public record CareerErrors

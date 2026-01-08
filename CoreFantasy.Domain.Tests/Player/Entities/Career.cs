@@ -4,15 +4,16 @@ using CoreFantasy.Domain.Shared;
 using Errors = CoreFantasy.Domain.Player.Entities.CareerErrors;
 using Rules = CoreFantasy.Domain.Player.Entities.CareerRules;
 using Sut = CoreFantasy.Domain.Player.Entities.Career;
-
+using JobEntity = CoreFantasy.Domain.Job.Job;
+using CoreFantasy.Domain.Job.ValueObjects;
+using CoreFantasy.Domain.Player.ValueObjects;
 
 namespace CoreFantasy.Domain.Tests.Player.Entities
 {
     public class Career
     {
         public Faker faker = new();
-
-        public readonly JobId jobId = JobId.Create();
+        public readonly JobEntity job = JobEntity.Create("Any Job", "Any Area", 10, 10, Requirement.Create(["none"], Age.Create(18).Age, [new JobPosition()]));
         public readonly JobPositionId jobPositionId = JobPositionId.Create();
 
         [Fact]
@@ -20,8 +21,8 @@ namespace CoreFantasy.Domain.Tests.Player.Entities
         {
             // Arrange
  
-            Sut career = Sut.Create(jobId, jobPositionId);
-            Assert.Equal(jobId, career.JobId);
+            Sut career = Sut.Create(job, jobPositionId);
+            Assert.Equal(job, career.Job);
             Assert.Equal(jobPositionId, career.JobPositionId);
             Assert.Equal(Rules.MIN_WORKED_HOURS, career.WorkedHours);
         }
@@ -31,8 +32,8 @@ namespace CoreFantasy.Domain.Tests.Player.Entities
         {
             // Arrange
             int workedHours = faker.Random.Int(Rules.MIN_WORKED_HOURS);
-            Sut career = Sut.Rehydrate(jobId, jobPositionId, workedHours);
-            Assert.Equal(jobId, career.JobId);
+            Sut career = Sut.Rehydrate(job, jobPositionId, workedHours);
+            Assert.Equal(job, career.Job);
             Assert.Equal(jobPositionId, career.JobPositionId);
             Assert.Equal(workedHours, career.WorkedHours);
         }
@@ -42,7 +43,7 @@ namespace CoreFantasy.Domain.Tests.Player.Entities
         {
             // Arrange
             int workedHoursAdded = faker.Random.Int(Rules.MIN_WORKED_HOURS);
-            Sut career = Sut.Create(jobId, jobPositionId);
+            Sut career = Sut.Create(job, jobPositionId);
             Assert.Equal(Rules.MIN_WORKED_HOURS, career.WorkedHours);
             Notification notificationErrors = career.AddWorkedHours(workedHoursAdded);
             Assert.False(notificationErrors.HasErrors());
@@ -55,7 +56,7 @@ namespace CoreFantasy.Domain.Tests.Player.Entities
             // Arrange
             int workedHours = faker.Random.Int(0, 100);
             int workedHoursToAdd = faker.Random.Int(1, 100);
-            Sut career = Sut.Rehydrate(jobId, jobPositionId, workedHours);
+            Sut career = Sut.Rehydrate(job, jobPositionId, workedHours);
             Assert.Equal(workedHours, career.WorkedHours);
             Notification notificationErrors = career.AddWorkedHours(workedHoursToAdd);
             Assert.False(notificationErrors.HasErrors());
@@ -67,7 +68,7 @@ namespace CoreFantasy.Domain.Tests.Player.Entities
         {
             // Arrange
             int invalidWorkHours = faker.Random.Int(-10, -1);
-            Sut career = Sut.Create(jobId, jobPositionId);
+            Sut career = Sut.Create(job, jobPositionId);
             Notification careerErrors = career.AddWorkedHours(invalidWorkHours);
             Assert.True(careerErrors.HasErrors());
             Assert.Equal(Rules.MIN_WORKED_HOURS, career.WorkedHours);
