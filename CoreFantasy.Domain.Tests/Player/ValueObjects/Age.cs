@@ -4,7 +4,7 @@ using Errors = CoreFantasy.Domain.Player.ValueObjects.AgeErrors;
 using Rules = CoreFantasy.Domain.Player.ValueObjects.AgeRules;
 using Sut = CoreFantasy.Domain.Player.ValueObjects.Age;
 
-namespace CoreFantasy.Domain.Tests.Player
+namespace CoreFantasy.Domain.Tests.Player.ValueObjects
 {
     public class Age
     {

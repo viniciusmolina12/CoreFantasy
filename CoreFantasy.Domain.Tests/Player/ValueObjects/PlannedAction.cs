@@ -5,7 +5,7 @@ using Errors = CoreFantasy.Domain.Player.ValueObjects.Agenda.PlannedActionErrors
 using Rules = CoreFantasy.Domain.Player.ValueObjects.Agenda.PlannedActionRules;
 using Sut = CoreFantasy.Domain.Player.ValueObjects.Agenda.PlannedAction;
 
-namespace CoreFantasy.Domain.Tests.Player
+namespace CoreFantasy.Domain.Tests.Player.ValueObjects
 {
     public class PlannedAction
     {

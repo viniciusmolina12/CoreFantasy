@@ -6,7 +6,7 @@ using PlannedActionSut = CoreFantasy.Domain.Player.ValueObjects.Agenda.PlannedAc
 using Sut = CoreFantasy.Domain.Player.ValueObjects.Agenda.Agenda;
 
 //TODO ADD MORE TESTS
-namespace CoreFantasy.Domain.Tests.Player
+namespace CoreFantasy.Domain.Tests.Player.ValueObjects
 {
     public class Agenda
     {
