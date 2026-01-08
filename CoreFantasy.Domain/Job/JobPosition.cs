@@ -14,7 +14,7 @@ namespace CoreFantasy.Domain.Job
         }
 
     }
-    public class JobPosition
+    public sealed class JobPosition
     {
     }
 }
