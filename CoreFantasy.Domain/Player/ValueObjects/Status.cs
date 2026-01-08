@@ -7,45 +7,27 @@ namespace CoreFantasy.Domain.Player.ValueObjects
         public readonly static  int MAX_HEALTH = 100;
         public readonly static int MIN_HEALTH = 0;
     }
-    public class Status : ValueObject
+    public sealed class Status : ValueObject
     {
         public int Health { get; }
-         
+        public decimal Money { get; init; }
 
-        private Status(int Health)
+        private Status(int Health, decimal money)
         {
             this.Health = Health;
+            this.Money = money;
         }
-        public static (Status Status, Notification Notification)Create(int Health)
+        public static Status Create(int Health, decimal Money)
         {
-            Notification notification = Validate(Health);
-            var health = notification.HasErrors() ? null : new Status(Health);
-            return (health, notification);
-        }
-
-        private static Notification Validate(int Health)
-        {
-            Notification notification = new();
-            if (Health < StatusRules.MIN_HEALTH)
-            {
-                notification.AddError(typeof(Status).Name, StatusErrors.HEALTH_CANNOT_BE_NEGATIVE);
-            }else if (Health > StatusRules.MAX_HEALTH)
-            {
-                notification.AddError(typeof(Status).Name, StatusErrors.HEALTH_EXCEED_MAXIMUM);
-            }
-            return notification;
+            if (Health < 0) Health = 0;
+            if (Health > StatusRules.MAX_HEALTH)
+                Health = StatusRules.MAX_HEALTH;
+            return new(Health, Money);
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Health;
         }
-    }
-
-    public record StatusErrors
-    {
-        public const string HEALTH_CANNOT_BE_NEGATIVE = "Health cannot be negative.";
-        public const string HEALTH_EXCEED_MAXIMUM = "Health cannot exceed maximum limit.";
-
     }
 }
