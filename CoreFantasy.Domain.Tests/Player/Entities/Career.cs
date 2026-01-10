@@ -5,7 +5,7 @@ using Errors = CoreFantasy.Domain.Player.Entities.CareerErrors;
 using Rules = CoreFantasy.Domain.Player.Entities.CareerRules;
 using Sut = CoreFantasy.Domain.Player.Entities.Career;
 using JobEntity = CoreFantasy.Domain.Job.Job;
-using CoreFantasy.Domain.Job.ValueObjects;
+using CoreFantasy.Domain.Shared.ValueObjects;
 using CoreFantasy.Domain.Player.ValueObjects;
 
 namespace CoreFantasy.Domain.Tests.Player.Entities
