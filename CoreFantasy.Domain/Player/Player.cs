@@ -128,14 +128,6 @@ namespace CoreFantasy.Domain.Player
             }
         }
 
-        public void ChangeEducation(CourseId courseId)
-        {
-            if (this.Alive) {
-                Education = Education.Create(courseId);
-                Touch();
-            }
-        }
-
         public void Work(int workHours)
         {
             //TODO ADD MONEY IMPLEMENTATION

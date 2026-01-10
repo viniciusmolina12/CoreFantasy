@@ -43,33 +43,11 @@ namespace CoreFantasy.Domain.Player.Entities
             // TODO IMPLEMENT EDUCATION COST CALCULATION
             return 0m;
         }
-        public Notification UpdateCourseProgress(int progress)
+        public void UpdateCourseProgress(int progress)
         {
-            Notification notification = new();
-            
-            if(progress < EducationRules.MIN_COURSE_PROGRESS)
-            {
-                notification.AddError(typeof(Education).Name, EducationErrors.COURSE_PROGRESS_CANNOT_BE_NEGATIVE);
-                return notification;
-            }
-
-            int newProgress = this.Progress + progress;
-
-            if (newProgress > EducationRules.MAX_COURSE_PROGRESS)
-            {
-                notification.AddError(typeof(Education).Name, EducationErrors.COURSE_PROGRESS_EXCEED_MAXIMUM);
-            }
-
-            if (notification.HasErrors()) return notification;
-            this.Progress = newProgress;
-            return notification;
+            if(progress < EducationRules.MIN_COURSE_PROGRESS) return;
+            this.Progress = (this.Progress + progress) > EducationRules.MAX_COURSE_PROGRESS ? EducationRules.MAX_COURSE_PROGRESS : this.Progress + progress;
         }
 
-    }
-
-    public record EducationErrors
-    {
-        public static readonly string COURSE_PROGRESS_CANNOT_BE_NEGATIVE = "Course progress cannot be negative.";
-        public static readonly string COURSE_PROGRESS_EXCEED_MAXIMUM = $"Course progress cannot exceed maximum limit of {EducationRules.MAX_COURSE_PROGRESS}.";
     }
 }
