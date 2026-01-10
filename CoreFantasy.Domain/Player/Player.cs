@@ -135,7 +135,7 @@ namespace CoreFantasy.Domain.Player
             if (this.Alive)
             {
                 this.Career?.AddWorkedHours(workHours);
-                decimal earnings = this.Career.CalculateEarnings(workHours);
+                decimal earnings = this.Career?.CalculateEarnings(workHours) ?? 0m;
                 this.AddMoney(earnings);
                 Touch();
             }
@@ -146,7 +146,7 @@ namespace CoreFantasy.Domain.Player
             this.DecreaseHealthStatus(studyHours);
             if (this.Alive)
             {
-                decimal educationCost = this.Education.CalculateEducationCost(studyHours);
+                decimal educationCost = this.Education?.CalculateEducationCost(studyHours) ?? 0m;
                 this.SubtractMoney(educationCost);
                 this.Education?.UpdateCourseProgress(studyHours);
                 Touch();

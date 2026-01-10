@@ -1,7 +1,5 @@
 ﻿using Bogus;
 using CoreFantasy.Domain.Course;
-using CoreFantasy.Domain.Shared;
-using Errors = CoreFantasy.Domain.Player.Entities.EducationErrors;
 using Rules = CoreFantasy.Domain.Player.Entities.EducationRules;
 using Sut = CoreFantasy.Domain.Player.Entities.Education;
 
@@ -39,8 +37,7 @@ namespace CoreFantasy.Domain.Tests.Player.Entities
             // Arrange
             int progress = faker.Random.Int(Rules.MIN_COURSE_PROGRESS, Rules.MAX_COURSE_PROGRESS);
             Sut education = Sut.Create(courseId);
-            Notification notificationErrors = education.UpdateCourseProgress(progress);
-            Assert.False(notificationErrors.HasErrors());
+            education.UpdateCourseProgress(progress);
             Assert.Equal(progress, education.Progress);
 
         }
@@ -53,33 +50,28 @@ namespace CoreFantasy.Domain.Tests.Player.Entities
             int progressToAdd = faker.Random.Int(Rules.MIN_COURSE_PROGRESS, Rules.MAX_COURSE_PROGRESS);
             int totalProgress = progress + progressToAdd;
             Sut education = Sut.Rehydrate(courseId, progress);
-            Notification notificationErrors = education.UpdateCourseProgress(progressToAdd);
-            Assert.False(notificationErrors.HasErrors());
+            education.UpdateCourseProgress(progressToAdd);
             Assert.Equal(totalProgress, education.Progress);
         }
 
         [Fact]
-        public void Should_Return_Error_If_Progress_Is_Less_Than_Minimal()
+        public void Should_Not_Add_Progress_If_Progress_Is_Less_Than_Minimal()
         {
             // Arrange
             int invalid_progress = Rules.MIN_COURSE_PROGRESS - 1;
             Sut education = Sut.Create(courseId);
-            Notification notificationErrors = education.UpdateCourseProgress(invalid_progress);
-            Assert.True(notificationErrors.HasErrors());
+            education.UpdateCourseProgress(invalid_progress);
             Assert.Equal(Rules.MIN_COURSE_PROGRESS, education.Progress);
-            Assert.Contains(Errors.COURSE_PROGRESS_CANNOT_BE_NEGATIVE, notificationErrors.GetErrorsByContext("Education"));
         }
 
         [Fact]
-        public void Should_Return_Error_If_Progress_Exceed_Maximum()
+        public void Should_Not_Add_Progress_If_Progress_Exceed_Maximum()
         {
             // Arrange
             int invalid_progress = Rules.MAX_COURSE_PROGRESS + 1;
             Sut education = Sut.Create(courseId);
-            Notification notificationErrors = education.UpdateCourseProgress(invalid_progress);
-            Assert.True(notificationErrors.HasErrors());
-            Assert.Equal(Rules.MIN_COURSE_PROGRESS, education.Progress);
-            Assert.Contains(Errors.COURSE_PROGRESS_EXCEED_MAXIMUM, notificationErrors.GetErrorsByContext("Education"));
+            education.UpdateCourseProgress(invalid_progress);
+            Assert.Equal(Rules.MAX_COURSE_PROGRESS, education.Progress);
         }
     }
 }

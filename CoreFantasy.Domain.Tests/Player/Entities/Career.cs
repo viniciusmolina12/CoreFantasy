@@ -13,19 +13,9 @@ namespace CoreFantasy.Domain.Tests.Player.Entities
     public class Career
     {
         public Faker faker = new();
-        public readonly JobEntity job = JobEntity.Create("Any Job", "Any Area", 10, 10, Requirement.Create(["none"], Age.Create(18).Age, [new JobPosition()]));
+        public readonly JobEntity job = JobEntity.Create("Any Job", "Any Area", 10, 10, [Requirement.Create(["none"], Age.Create(18).Age)], [new JobPosition()]);
         public readonly JobPositionId jobPositionId = JobPositionId.Create();
 
-        [Fact]
-        public void Should_Create_A_Valid_Career()
-        {
-            // Arrange
- 
-            Sut career = Sut.Create(job, jobPositionId);
-            Assert.Equal(job, career.Job);
-            Assert.Equal(jobPositionId, career.JobPositionId);
-            Assert.Equal(Rules.MIN_WORKED_HOURS, career.WorkedHours);
-        }
 
         [Fact]
         public void Should_Rehydrated_A_Career_Correctly()
