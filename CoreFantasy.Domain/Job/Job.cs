@@ -1,4 +1,4 @@
-﻿using CoreFantasy.Domain.Job.ValueObjects;
+﻿using CoreFantasy.Domain.Shared.ValueObjects;
 using System.Collections.ObjectModel;
 
 namespace CoreFantasy.Domain.Job

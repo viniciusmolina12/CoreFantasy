@@ -1,7 +1,6 @@
-﻿using CoreFantasy.Domain.Player.ValueObjects;
-using CoreFantasy.Domain.Shared;
+using CoreFantasy.Domain.Player.ValueObjects;
 
-namespace CoreFantasy.Domain.Job.ValueObjects
+namespace CoreFantasy.Domain.Shared.ValueObjects
 {
     sealed public class Requirement : ValueObject
     {
