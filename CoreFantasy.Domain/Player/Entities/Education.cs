@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
-using CourseId = CoreFantasy.Domain.Course.CourseId;
-using Notification = CoreFantasy.Domain.Shared.Notification;
+using CourseEntity = CoreFantasy.Domain.Course.Course;
 
 [assembly: InternalsVisibleTo("CoreFantasy.Infrastructure")]
 [assembly: InternalsVisibleTo("CoreFantasy.Domain.Tests")]
@@ -13,35 +12,34 @@ namespace CoreFantasy.Domain.Player.Entities
     }
     public class Education
     {
-        public CourseId CourseId { get; private set; }
+        public CourseEntity Course { get; private set; }
         public int Progress { get; private set; }
 
-        private Education(CourseId courseId)
+        private Education(CourseEntity course)
         {
-            this.CourseId = courseId;
+            this.Course = course;
             this.Progress = 0;
         }
 
-        private Education(CourseId courseId, int progress)
+        private Education(CourseEntity course, int progress)
         {
-            this.CourseId = courseId;
+            this.Course = course;
             this.Progress = progress;
         }
 
-        public static Education Create(CourseId courseId)
+        public static Education Create(CourseEntity course)
         {
-            return new(courseId);
+            return new(course);
         }
 
-        internal static Education Rehydrate(CourseId courseId, int progress)
+        internal static Education Rehydrate(CourseEntity course, int progress)
         {
-            return new(courseId, progress);
+            return new(course, progress);
         }
 
         public decimal CalculateEducationCost(int studyHours)
         {
-            // TODO IMPLEMENT EDUCATION COST CALCULATION
-            return 0m;
+            return this.Course.StudyCostPerHour * studyHours;
         }
         public void UpdateCourseProgress(int progress)
         {

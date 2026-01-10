@@ -1,5 +1,4 @@
-﻿using CoreFantasy.Domain.Course;
-using CoreFantasy.Domain.Player.Entities;
+﻿using CoreFantasy.Domain.Player.Entities;
 using CoreFantasy.Domain.Player.ValueObjects;
 using CoreFantasy.Domain.Player.ValueObjects.Agenda;
 using CoreFantasy.Domain.Shared;
@@ -8,7 +7,7 @@ using CoreFantasy.Domain.User.ValueObjects;
 
 namespace CoreFantasy.Domain.Player
 {
-    public class PlayerId
+    public class PlayerId : ValueObject
     {
         public Guid Value { get; }
 
@@ -25,6 +24,11 @@ namespace CoreFantasy.Domain.Player
         public static PlayerId From(Guid value)
         {
             return new PlayerId(value);
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Value;
         }
     }
 
