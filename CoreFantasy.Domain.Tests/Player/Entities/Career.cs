@@ -7,13 +7,14 @@ using Sut = CoreFantasy.Domain.Player.Entities.Career;
 using JobEntity = CoreFantasy.Domain.Job.Job;
 using CoreFantasy.Domain.Shared.ValueObjects;
 using CoreFantasy.Domain.Player.ValueObjects;
+using CoreFantasy.Domain.Course;
 
 namespace CoreFantasy.Domain.Tests.Player.Entities
 {
     public class Career
     {
         public Faker faker = new();
-        public readonly JobEntity job = JobEntity.Create("Any Job", "Any Area", 10, 10, [Requirement.Create(["none"], Age.Create(18).Age)], [new JobPosition()]);
+        public readonly JobEntity job = JobEntity.Create("Any Job", "Any Area", 10, 10, [Requirement.Create([CourseId.Create("any_course_id")], Age.Create(18).Age)], [new JobPosition()]);
         public readonly JobPositionId jobPositionId = JobPositionId.Create();
 
 

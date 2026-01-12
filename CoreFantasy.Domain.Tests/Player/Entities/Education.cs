@@ -4,6 +4,7 @@ using CourseEntity = CoreFantasy.Domain.Course.Course;
 using Rules = CoreFantasy.Domain.Player.Entities.EducationRules;
 using Sut = CoreFantasy.Domain.Player.Entities.Education;
 using Age = CoreFantasy.Domain.Player.ValueObjects.Age;
+using CoreFantasy.Domain.Course;
 
 namespace CoreFantasy.Domain.Tests.Player.Entities
 {
@@ -11,7 +12,7 @@ namespace CoreFantasy.Domain.Tests.Player.Entities
     {
         public Faker faker = new();
 
-        public readonly CourseEntity course = CourseEntity.Create("any_course_name", "any_course_area", 100, 10, 10, [Requirement.Create(["none"], Age.Create(18).Age)]);
+        public readonly CourseEntity course = CourseEntity.Create("any_course_name", "any_course_area", 100, 10, 10, [Requirement.Create([CourseId.Create("any_course_id")], Age.Create(18).Age)]);
 
         [Fact]
         public void Should_Create_A_Valid_Education()
